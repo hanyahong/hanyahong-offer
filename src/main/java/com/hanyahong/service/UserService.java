@@ -1,6 +1,8 @@
 package com.hanyahong.service;
 
+import com.hanyahong.model.StatusInfo;
 import com.hanyahong.model.user.User;
+import com.hanyahong.model.user.vo.LoginVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,4 +32,19 @@ public interface UserService {
      * @param user
      */
     void addUserService(User user);
+
+    /**
+     * 用户登录
+     *
+     * @param loginVO
+     * @return
+     */
+    StatusInfo userLoginService(LoginVO loginVO);
+
+    /**
+     * 用户注册
+     * @param loginVO
+     * @return
+     */
+    StatusInfo userRegisterService(LoginVO loginVO);
 }

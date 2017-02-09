@@ -45,10 +45,10 @@ public class AccessTokenVerifyInterceptor extends HandlerInterceptorAdapter {
         String accessToken = request.getHeader("token");
 
         if (StringUtils.isNotBlank(accessToken)) {
-           /* UserAccount u = this.userRepoImpl.selUserByToken(accessToken);
-            if (u != null) {
+           // UserAccount u = this.userRepoImpl.selUserByToken(accessToken);
+            if (accessToken != null) {
                 flag = true;
-            }*/
+            }
         }
         if (!flag) {
             response.setStatus(403);

@@ -53,5 +53,10 @@ public class UserRepoImpl {
         return account;
     }
 
-
+    //以电话查询单条
+    public User selUserRepoOneByPhone(String phone){
+        Query query = new Query(Criteria.where("phone").is(phone));
+        query.fields().exclude("account");
+        return this.mongoTemplate.findOne(query, User.class, "user");
+    }
 }

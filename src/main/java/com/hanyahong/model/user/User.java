@@ -27,6 +27,17 @@ public class User {
     private String last_login_time;
     private Account account;
 
+    //签名体系
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Account getAccount() {
         return account;
     }

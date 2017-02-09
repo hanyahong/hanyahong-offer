@@ -4,7 +4,11 @@ package com.hanyahong;/*
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -30,72 +34,23 @@ public class Application {
         new SpringApplication(new Object[]{Application.class}).run(args);
     }
 
-//    /**
-//     * 跨域访问设置
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowCredentials(Boolean.valueOf(true));
-//        corsConfiguration.addAllowedOrigin("*");
-//        corsConfiguration.addAllowedHeader("*");
-//        corsConfiguration.addAllowedMethod("*");
-//        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",
-//                corsConfiguration);
-//
-//        return new CorsFilter(urlBasedCorsConfigurationSource);
-//    }
-//
-//    /**
-//     * 文件大小限制
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public MultipartConfigElement multipartConfigElement() {
-//
-//        MultipartConfigFactory factory = new MultipartConfigFactory();
-//
-//        factory.setMaxFileSize("20480KB");
-//
-//        factory.setMaxRequestSize("20480KB");
-//
-//        return factory.createMultipartConfig();
-//
-//    }
-
-/*
+    /**
+     * 跨域访问设置
+     *
+     * @return
+     */
     @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
-            @Override
-            protected void postProcessContext(org.apache.catalina.Context context) {
-                SecurityConstraint constraint = new SecurityConstraint();
-                constraint.setUserConstraint("CONFIDENTIAL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/public");
-                collection.addPattern("/auth");
-                constraint.addCollection(collection);
-                context.addConstraint(constraint);
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(Boolean.valueOf(true));
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",
+                corsConfiguration);
 
-            }
-        };
-        tomcat.addAdditionalTomcatConnectors(httpConnector());
-        return tomcat;
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 
-    @Bean
-    public Connector httpConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setScheme("http");
-        //Connector监听的http的端口号
-        connector.setPort(8094);
-        connector.setSecure(false);
-        //监听到http的端口号后转向到的https的端口号
-        connector.setRedirectPort(8443);
-        return connector;
-    }*/
 }
